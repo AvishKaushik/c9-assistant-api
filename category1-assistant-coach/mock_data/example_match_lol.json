@@ -1,0 +1,149 @@
+{
+  "match": {
+    "id": "match_001",
+    "seriesId": "series_001",
+    "startedAt": "2024-01-15T14:00:00Z",
+    "endedAt": "2024-01-15T14:35:00Z",
+    "games": [
+      {
+        "id": "game_001",
+        "sequenceNumber": 1,
+        "startedAt": "2024-01-15T14:00:00Z",
+        "endedAt": "2024-01-15T14:35:00Z",
+        "duration": 2100,
+        "winner": {
+          "id": "team_c9",
+          "name": "Cloud9"
+        },
+        "teams": [
+          {
+            "id": "team_c9",
+            "name": "Cloud9",
+            "side": "blue",
+            "score": 1,
+            "objectives": [
+              {"type": "DRAGON", "count": 4, "firstTimestamp": 360000},
+              {"type": "BARON", "count": 1, "firstTimestamp": 1500000},
+              {"type": "TOWER", "count": 9, "firstTimestamp": 600000}
+            ],
+            "players": [
+              {
+                "id": "player_001",
+                "name": "Fudge",
+                "champion": {"id": "ksante", "name": "K'Sante"},
+                "role": "top",
+                "kills": 3,
+                "deaths": 1,
+                "assists": 8,
+                "cs": 245,
+                "gold": 12500,
+                "damageDealt": 18500,
+                "visionScore": 35
+              },
+              {
+                "id": "player_002",
+                "name": "Blaber",
+                "champion": {"id": "viego", "name": "Viego"},
+                "role": "jungle",
+                "kills": 6,
+                "deaths": 2,
+                "assists": 10,
+                "cs": 180,
+                "gold": 14200,
+                "damageDealt": 22000,
+                "visionScore": 42
+              },
+              {
+                "id": "player_003",
+                "name": "Jojopyun",
+                "champion": {"id": "azir", "name": "Azir"},
+                "role": "mid",
+                "kills": 5,
+                "deaths": 1,
+                "assists": 6,
+                "cs": 280,
+                "gold": 15000,
+                "damageDealt": 28000,
+                "visionScore": 28
+              },
+              {
+                "id": "player_004",
+                "name": "Berserker",
+                "champion": {"id": "kaisa", "name": "Kai'Sa"},
+                "role": "adc",
+                "kills": 8,
+                "deaths": 0,
+                "assists": 4,
+                "cs": 310,
+                "gold": 17500,
+                "damageDealt": 32000,
+                "visionScore": 22
+              },
+              {
+                "id": "player_005",
+                "name": "Vulcan",
+                "champion": {"id": "nautilus", "name": "Nautilus"},
+                "role": "support",
+                "kills": 0,
+                "deaths": 3,
+                "assists": 18,
+                "cs": 35,
+                "gold": 8500,
+                "damageDealt": 8000,
+                "visionScore": 85
+              }
+            ]
+          },
+          {
+            "id": "team_opponent",
+            "name": "Team Liquid",
+            "side": "red",
+            "score": 0,
+            "objectives": [
+              {"type": "DRAGON", "count": 1, "firstTimestamp": null},
+              {"type": "BARON", "count": 0, "firstTimestamp": null},
+              {"type": "TOWER", "count": 3, "firstTimestamp": 900000}
+            ],
+            "players": [
+              {
+                "id": "player_006",
+                "name": "Summit",
+                "champion": {"id": "aatrox", "name": "Aatrox"},
+                "role": "top",
+                "kills": 2,
+                "deaths": 5,
+                "assists": 3,
+                "cs": 210,
+                "gold": 10000,
+                "damageDealt": 15000,
+                "visionScore": 25
+              }
+            ]
+          }
+        ],
+        "drafts": [
+          {
+            "team": {"id": "team_c9", "name": "Cloud9"},
+            "bans": [
+              {"champion": {"id": "syndra", "name": "Syndra"}, "order": 1},
+              {"champion": {"id": "maokai", "name": "Maokai"}, "order": 2},
+              {"champion": {"id": "jinx", "name": "Jinx"}, "order": 3}
+            ],
+            "picks": [
+              {"champion": {"id": "nautilus", "name": "Nautilus"}, "order": 1, "player": {"id": "player_005", "name": "Vulcan"}},
+              {"champion": {"id": "viego", "name": "Viego"}, "order": 2, "player": {"id": "player_002", "name": "Blaber"}},
+              {"champion": {"id": "azir", "name": "Azir"}, "order": 3, "player": {"id": "player_003", "name": "Jojopyun"}}
+            ]
+          }
+        ],
+        "events": [
+          {"type": "FIRST_BLOOD", "timestamp": 180000, "data": {"killer": "player_002"}},
+          {"type": "DRAGON_KILL", "timestamp": 360000, "data": {"team": "team_c9", "dragonType": "INFERNAL"}},
+          {"type": "TOWER_KILL", "timestamp": 600000, "data": {"team": "team_c9", "lane": "mid"}},
+          {"type": "CHAMPION_KILL", "timestamp": 720000, "data": {"killer": "player_004", "victim": "player_006"}},
+          {"type": "BARON_KILL", "timestamp": 1500000, "data": {"team": "team_c9"}}
+        ]
+      }
+    ]
+  }
+}

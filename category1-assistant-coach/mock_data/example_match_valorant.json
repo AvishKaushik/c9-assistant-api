@@ -1,0 +1,154 @@
+{
+  "match": {
+    "id": "match_val_001",
+    "seriesId": "series_val_001",
+    "startedAt": "2024-01-15T16:00:00Z",
+    "endedAt": "2024-01-15T17:15:00Z",
+    "games": [
+      {
+        "id": "game_val_001",
+        "sequenceNumber": 1,
+        "map": {
+          "id": "ascent",
+          "name": "Ascent"
+        },
+        "startedAt": "2024-01-15T16:00:00Z",
+        "endedAt": "2024-01-15T16:45:00Z",
+        "winner": {
+          "id": "team_c9_val",
+          "name": "Cloud9"
+        },
+        "teams": [
+          {
+            "id": "team_c9_val",
+            "name": "Cloud9",
+            "side": "attack",
+            "roundsWon": 13,
+            "roundsLost": 9,
+            "attackRoundsWon": 7,
+            "defenseRoundsWon": 6,
+            "players": [
+              {
+                "id": "player_val_001",
+                "name": "Zellsis",
+                "agent": {"id": "raze", "name": "Raze", "role": "duelist"},
+                "kills": 22,
+                "deaths": 15,
+                "assists": 4,
+                "acs": 265.5,
+                "kast": 0.73,
+                "adr": 165.2,
+                "firstBloods": 5,
+                "firstDeaths": 3,
+                "clutches": 2,
+                "clutchesAttempted": 4,
+                "plants": 0,
+                "defuses": 0
+              },
+              {
+                "id": "player_val_002",
+                "name": "jakee",
+                "agent": {"id": "omen", "name": "Omen", "role": "controller"},
+                "kills": 18,
+                "deaths": 14,
+                "assists": 8,
+                "acs": 235.0,
+                "kast": 0.77,
+                "adr": 145.8,
+                "firstBloods": 2,
+                "firstDeaths": 2,
+                "clutches": 1,
+                "clutchesAttempted": 2,
+                "plants": 0,
+                "defuses": 0
+              },
+              {
+                "id": "player_val_003",
+                "name": "Xeppaa",
+                "agent": {"id": "sova", "name": "Sova", "role": "initiator"},
+                "kills": 15,
+                "deaths": 13,
+                "assists": 10,
+                "acs": 210.3,
+                "kast": 0.82,
+                "adr": 130.5,
+                "firstBloods": 1,
+                "firstDeaths": 1,
+                "clutches": 0,
+                "clutchesAttempted": 1,
+                "plants": 0,
+                "defuses": 0
+              },
+              {
+                "id": "player_val_004",
+                "name": "runi",
+                "agent": {"id": "jett", "name": "Jett", "role": "duelist"},
+                "kills": 20,
+                "deaths": 12,
+                "assists": 3,
+                "acs": 275.8,
+                "kast": 0.68,
+                "adr": 170.2,
+                "firstBloods": 6,
+                "firstDeaths": 5,
+                "clutches": 1,
+                "clutchesAttempted": 3,
+                "plants": 0,
+                "defuses": 0
+              },
+              {
+                "id": "player_val_005",
+                "name": "moose",
+                "agent": {"id": "killjoy", "name": "Killjoy", "role": "sentinel"},
+                "kills": 12,
+                "deaths": 11,
+                "assists": 6,
+                "acs": 185.0,
+                "kast": 0.85,
+                "adr": 110.5,
+                "firstBloods": 0,
+                "firstDeaths": 1,
+                "clutches": 2,
+                "clutchesAttempted": 2,
+                "plants": 0,
+                "defuses": 3
+              }
+            ]
+          },
+          {
+            "id": "team_opponent_val",
+            "name": "Sentinels",
+            "side": "defense",
+            "roundsWon": 9,
+            "roundsLost": 13,
+            "attackRoundsWon": 5,
+            "defenseRoundsWon": 4,
+            "players": []
+          }
+        ],
+        "rounds": [
+          {
+            "number": 1,
+            "winningTeam": {"id": "team_c9_val"},
+            "winCondition": "elimination",
+            "attackingTeam": {"id": "team_c9_val"},
+            "economy": [
+              {"team": {"id": "team_c9_val"}, "loadoutValue": 3900, "spent": 3900},
+              {"team": {"id": "team_opponent_val"}, "loadoutValue": 3900, "spent": 3900}
+            ]
+          },
+          {
+            "number": 13,
+            "winningTeam": {"id": "team_c9_val"},
+            "winCondition": "elimination",
+            "attackingTeam": {"id": "team_opponent_val"},
+            "economy": [
+              {"team": {"id": "team_c9_val"}, "loadoutValue": 4500, "spent": 4500},
+              {"team": {"id": "team_opponent_val"}, "loadoutValue": 4500, "spent": 4500}
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
