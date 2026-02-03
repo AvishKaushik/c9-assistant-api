@@ -1,7 +1,10 @@
 """Scenario predictor service for what-if analysis."""
 
+import logging
 import sys
 from typing import Any, Optional
+
+logger = logging.getLogger(__name__)
 
 sys.path.insert(0, "/Users/pseudo/Documents/Work/Hackathons/C9xJetBrains")
 
@@ -199,20 +202,37 @@ Game State:
 
 Alternative Scenario: {scenario}
 
-Provide your analysis in the following format:
-1. SUCCESS_PROBABILITY: (0-100)
-2. CONFIDENCE: (high/medium/low)
-3. KEY_FACTORS: (comma-separated list)
-4. RISKS: (comma-separated list)
-5. REWARDS: (comma-separated list)
-6. REASONING: (2-3 sentences)
+Provide your analysis in the following EXACT format (use only these labels, provide numeric values where indicated):
+SUCCESS_PROBABILITY: [number between 0 and 100, e.g. 65 for 65% chance]
+CONFIDENCE: [high/medium/low]
+KEY_FACTORS: [factor1, factor2, factor3]
+RISKS: [risk1, risk2]
+REWARDS: [reward1, reward2]
+REASONING: [2-3 sentences explaining your analysis]
+
+IMPORTANT: For SUCCESS_PROBABILITY, provide a realistic percentage. For most strategic alternatives in professional esports, probabilities should typically be between 35-75% unless the scenario is clearly very risky or very safe.
 """
 
         try:
+            logger.info(f"Generating prediction for scenario: {scenario}")
+            logger.debug(f"Game state context: {context[:500]}..." if len(context) > 500 else f"Game state context: {context}")
             response = await self.llm_client.generate(prompt)
+            logger.info(f"LLM response received, length: {len(response)}")
+            logger.debug(f"LLM response: {response[:500]}..." if len(response) > 500 else f"LLM response: {response}")
             return self._parse_prediction_response(response, scenario)
-        except Exception:
-            return self._default_prediction(scenario)
+        except Exception as e:
+            logger.error(f"LLM prediction failed: {type(e).__name__}: {e}")
+            # Return a more informative prediction when LLM fails
+            return ScenarioPrediction(
+                scenario_description=scenario,
+                success_probability=0.5,
+                confidence="low",
+                key_factors=[f"LLM service error: {type(e).__name__}"],
+                risks=["Analysis could not be completed"],
+                rewards=["Retry with valid API key or check LLM service"],
+                historical_precedents=[],
+                reasoning=f"LLM prediction failed: {str(e)}. Please ensure GROQ_API_KEY is set correctly.",
+            )
 
     async def _generate_alternatives(
         self,
@@ -230,18 +250,21 @@ Given this {game.value.upper()} game state:
 And the proposed scenario: {original_scenario}
 
 Suggest 2 alternative scenarios that could have occurred at this point.
-For each, provide:
-1. SCENARIO: (brief description)
-2. SUCCESS_PROBABILITY: (0-100)
-3. KEY_FACTORS: (comma-separated list)
+For each alternative, provide in EXACT format:
+SCENARIO: [brief description]
+SUCCESS_PROBABILITY: [number 0-100, e.g. 55 for 55%]
+KEY_FACTORS: [factor1, factor2, factor3]
 
-Format each alternative on a new section.
+Separate each alternative with a blank line. Provide realistic probabilities (typically 35-75%).
 """
 
         try:
+            logger.info(f"Generating alternatives for scenario: {original_scenario}")
             response = await self.llm_client.generate(prompt)
+            logger.info(f"Alternatives response received, length: {len(response)}")
             return self._parse_alternatives_response(response)
-        except Exception:
+        except Exception as e:
+            logger.error(f"LLM alternatives generation failed: {type(e).__name__}: {e}")
             return []
 
     def _format_game_state(
@@ -299,11 +322,19 @@ Format each alternative on a new section.
 
         for line in lines:
             line_lower = line.lower().strip()
-            if "success_probability" in line_lower or "probability" in line_lower:
+            if "success_probability" in line_lower or ("probability" in line_lower and ":" in line):
                 try:
-                    num = "".join(c for c in line if c.isdigit() or c == ".")
-                    probability = float(num) / 100 if float(num) > 1 else float(num)
-                except ValueError:
+                    # Extract only the value after the colon
+                    value_part = line.split(":", 1)[-1].strip()
+                    # Remove % sign and any non-numeric chars except dots
+                    num_str = "".join(c for c in value_part if c.isdigit() or c == ".")
+                    if num_str:
+                        num = float(num_str)
+                        # If value is > 1, treat as percentage (0-100 scale)
+                        probability = num / 100 if num > 1 else num
+                        logger.debug(f"Parsed probability: {num} -> {probability}")
+                except (ValueError, IndexError) as e:
+                    logger.warning(f"Failed to parse probability from line: {line}, error: {e}")
                     pass
             elif "confidence" in line_lower:
                 if "high" in line_lower:
@@ -356,11 +387,15 @@ Format each alternative on a new section.
                 line_lower = line.lower().strip()
                 if "scenario" in line_lower:
                     scenario = line.split(":", 1)[-1].strip()
-                elif "probability" in line_lower:
+                elif "probability" in line_lower and ":" in line:
                     try:
-                        num = "".join(c for c in line if c.isdigit() or c == ".")
-                        probability = float(num) / 100 if float(num) > 1 else float(num)
-                    except ValueError:
+                        # Extract only the value after the colon
+                        value_part = line.split(":", 1)[-1].strip()
+                        num_str = "".join(c for c in value_part if c.isdigit() or c == ".")
+                        if num_str:
+                            num = float(num_str)
+                            probability = num / 100 if num > 1 else num
+                    except (ValueError, IndexError):
                         pass
                 elif "factors" in line_lower:
                     factor_str = line.split(":", 1)[-1].strip()

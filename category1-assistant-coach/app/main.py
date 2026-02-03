@@ -2,13 +2,19 @@
 
 import os
 from contextlib import asynccontextmanager
+from pathlib import Path
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 
-from .routers import insights, macro_review, what_if
+# Load .env from current directory or parent directories
+env_path = Path(__file__).resolve().parent.parent.parent / ".env"
+if env_path.exists():
+    load_dotenv(dotenv_path=env_path)
+else:
+    load_dotenv()  # Fallback to default behavior
 
-load_dotenv()
+from .routers import insights, macro_review, what_if
 
 
 @asynccontextmanager
